@@ -2,7 +2,7 @@ from tensorflow.keras.callbacks import Callback
 import tensorflow.keras.backend as K
 
 #通过Callback实现动态的学习率控制。
-class WarmupDecayNoDown(Callback):
+class WarmupDecay(Callback):
     def __init__(self, lr_base=0.0002, warmup_epochs=2, norm_epochs = 4, steps_per_epoch = 0, epoches = 10):
         self.num_passed_batchs = 0   #一个计数器
         self.warmup_epochs = warmup_epochs
