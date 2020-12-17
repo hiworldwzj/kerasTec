@@ -24,7 +24,7 @@ def get_direct_multi_dice_loss_fun(class_count, smooth=0.1):
         for i in range(class_count):
             tmp_y_true = y_true[:, i]
             tmp_y_pred = y_pred[:, i]
-            tmp_y_max_pred = K.max(y_pred, keepdims=False)
+            tmp_y_max_pred = K.max(y_pred, axis=-1, keepdims=False)
             tmp_pred_one_zero = K.cast(K.equal(tmp_y_pred, tmp_y_max_pred), dtype="float32")
             tmp_true_pred = tmp_y_true * tmp_pred_one_zero
             p = (K.sum(K.stop_gradient(tmp_true_pred - tmp_y_pred) + tmp_y_pred) + smooth) / (K.sum(K.stop_gradient(tmp_pred_one_zero - tmp_y_pred) + tmp_y_pred) + smooth)
