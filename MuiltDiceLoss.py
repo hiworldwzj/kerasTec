@@ -30,5 +30,5 @@ def get_direct_multi_dice_loss_fun(class_count, smooth=0.1):
             p = (K.sum(K.stop_gradient(tmp_true_pred - tmp_y_pred) + tmp_y_pred) + smooth) / (K.sum(K.stop_gradient(tmp_pred_one_zero - tmp_y_pred) + tmp_y_pred) + smooth)
             r = (K.sum(K.stop_gradient(tmp_true_pred - tmp_y_pred) + tmp_y_pred) + smooth) / (K.sum(tmp_y_true) + smooth)
             ans_list.append(2*p*r /(p + r))
-        return -K.sum(K.concatenate(ans_list))
+        return -K.mean(K.stack(ans_list))
     return dice_loss
