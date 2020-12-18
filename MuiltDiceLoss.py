@@ -12,6 +12,12 @@ def get_multi_dice_loss_fun(class_count, smooth=1, alpha = 2):
         return -K.mean(loss_ans)
     return dice_loss
 
+def get_multi_focal_loss(class_count, alpha = 2):
+    def focal_loss(y_true, y_pred):
+        y_true = K.cast(y_true, dtype="float32")
+        return K.mean(-K.sum(K.pow(1 - y_pred, 2) * K.log(y_pred) * y_true, axis=-1, keepdims=False))
+    return focal_loss
+
 def get_direct_multi_dice_loss_fun(class_count, smooth=0.1):
     """
     直接建模f值的函数
